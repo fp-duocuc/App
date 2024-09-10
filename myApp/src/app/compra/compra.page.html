@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carrito de Compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let producto of carrito">
+      <ion-thumbnail slot="start">
+        <img [src]="producto.imagen" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ producto.nombre }}</h2>
+        <p>{{ producto.descripcion }}</p>
+        <p>{{ producto.precio | currency }}</p>
+      </ion-label>
+
+      <!-- Botones de cantidad con flechas para aumentar/disminuir -->
+      <ion-col size="2" class="cantidad-col">
+        <ion-buttons>
+          <ion-button (click)="disminuirCantidad(producto)">
+            <ion-icon name="remove-circle-outline"></ion-icon>
+          </ion-button>
+
+          <ion-input 
+            type="number" 
+            [value]="producto?.cantidad ?? 1" 
+            (ionChange)="actualizarCantidad(producto, +($event.detail.value ?? 1))"
+            class="cantidad-input"
+            inputmode="numeric">
+          </ion-input>
+
+          <ion-button (click)="aumentarCantidad(producto)">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+
+      <!-- Botón de eliminar producto -->
+      <ion-col size="2">
+        <ion-button color="danger" (click)="eliminarProducto(producto)">Eliminar</ion-button>
+      </ion-col>
+    </ion-item>
+  </ion-list>
+  
+  <!-- Mostrar el total -->
+  <ion-item>
+    <ion-label>Total:</ion-label>
+    <ion-badge>{{ total | currency }}</ion-badge>
+  </ion-item>
+  
+  <!-- Botón para proceder con el pago -->
+  <ion-button expand="block" (click)="pagar()">Pagar</ion-button>
+</ion-content>

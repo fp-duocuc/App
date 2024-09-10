@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="loggedInUser; else notLoggedIn">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ loggedInUser }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>Correo electrónico: {{ loggedInUser }}</p>
+        <p>Nombre: Usuario Ejemplo</p>
+        <p>Dirección: Dirección de Ejemplo</p>
+        <p>Teléfono: +56 9 1234 5678</p>
+        <ion-button expand="full" color="danger" (click)="logout()">Cerrar Sesión</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #notLoggedIn>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Inicia Sesión</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>Por favor, inicia sesión para ver tu perfil.</p>
+        <ion-button expand="full" routerLink="/seguridad">Ir a Login</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ventas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let trabajador of trabajadores">
+        <ion-card (click)="verVentasTrabajador(trabajador)">
+          <ion-img [src]="trabajador.foto"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{ trabajador.nombre }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Cargo: {{ trabajador.cargo }}</p>
+            <p>RUT: {{ trabajador.rut }}</p>
+            <p>Desempeño: {{ trabajador.desempeno }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item>
+    <ion-label>Total de Ventas: {{ totalVentas | currency }}</ion-label>
+  </ion-item>
+</ion-content>

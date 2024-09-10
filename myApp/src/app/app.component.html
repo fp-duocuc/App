@@ -1,0 +1,49 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <!-- Menú lateral -->
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Menú</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <!-- Contenido principal con el ícono de carrito -->
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+
+  <!-- Header global con el ícono del carrito y estado del perfil -->
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Órganos Disponibles</ion-title>
+      <ion-buttons slot="end">
+        <!-- Mostrar correo del usuario logueado y botón de cerrar sesión -->
+        <div *ngIf="loggedInUser" style="display: flex; align-items: center;">
+          <ion-label>{{ loggedInUser }}</ion-label>
+          <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+        </div>
+        <div *ngIf="!loggedInUser">
+          <ion-label>No has iniciado sesión</ion-label>
+        </div>
+
+        <!-- Ícono del carrito -->
+        <ion-button (click)="irAlCarrito()">
+          <ion-icon name="cart-outline"></ion-icon>
+          <ion-badge *ngIf="cantidadCarrito > 0" color="primary">{{ cantidadCarrito }}</ion-badge>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</ion-app>
